@@ -77,12 +77,19 @@ class LinkyCard extends LitElement {
                   <li><span class="ha-icon"><ha-icon icon="mdi:arrow-right" style="transform: rotate(${(attributes.monthly_evolution < 0) ? '45' : ((attributes.monthly_evolution == 0) ? "0" : "-45")}deg)"></ha-icon></span>${Math.round(attributes.monthly_evolution)}<span class="unit"> %</span><span class="previous-month">par rapport à ${previousMonth()}</span></li>
               </ul>
             </span>
-            <div class="week-history clear">
-              ${attributes.daily.slice(2, 7).reverse().map((day, index) => this.renderDay(day, index, attributes.unit_of_measurement))}
+            ${this.renderHistory(attributes.daily, attributes.unit_of_measurement)}
             </div>
-          </div>
         <ha-card>`
     }
+  }
+
+  renderHistory(daily, unit_of_measurement) {
+    return html
+      `
+        <div class="week-history">
+          ${daily.slice(2, 7).reverse().map((day, index) => this.renderDay(day, index, unit_of_measurement))}
+        </div>
+      `
   }
 
   renderDay(day, dayNumber, unit_of_measurement) {
