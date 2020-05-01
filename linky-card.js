@@ -78,7 +78,7 @@ class LinkyCard extends LitElement {
               </ul>
             </span>
             ${this.renderHistory(attributes.daily, attributes.unit_of_measurement)}
-            </div>
+          </div>
         <ha-card>`
     }
   }
@@ -161,7 +161,6 @@ class LinkyCard extends LitElement {
       .cout-unit {
         font-weight: 300;
         font-size: 1.5em;
-        vertical-align: super;
         color: var(--primary-text-color);
         position: absolute;
         right: 1em;
@@ -194,7 +193,6 @@ class LinkyCard extends LitElement {
         font-weight: 100;
         font-size: 1em;
         vertical-align: super;
-        color: var(--primary-text-color);
         margin-top: -14px;
         margin-right: 7px;
       }
@@ -207,7 +205,6 @@ class LinkyCard extends LitElement {
       .variations-linky {
         display: inline-block;
         font-weight: 300;
-        color: var(--primary-text-color);
         list-style: none;
         margin-left: -2em;
       }
@@ -224,18 +221,13 @@ class LinkyCard extends LitElement {
       }
     
       .week-history {
-        width: 100%;
-        margin: 0 auto;
-        height: 4em;
         display: flex;
       }
     
       .day {
-        display: block;
         flex: auto;
         text-align: center;
-        color: var(--primary-text-color);
-        border-right: .1em solid #d9d9d9;
+        border-right: .1em solid var(--divider-color);
         line-height: 2;
         box-sizing: border-box;
       }
