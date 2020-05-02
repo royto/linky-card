@@ -84,12 +84,14 @@ class LinkyCard extends LitElement {
   }
 
   renderHistory(daily, unit_of_measurement) {
-    return html
-      `
-        <div class="week-history">
-          ${daily.slice(2, 7).reverse().map((day, index) => this.renderDay(day, index, unit_of_measurement))}
-        </div>
-      `
+    if (this.config.showHistory === true) {
+      return html
+        `
+          <div class="week-history">
+            ${daily.slice(2, 7).reverse().map((day, index) => this.renderDay(day, index, unit_of_measurement))}
+          </div>
+        `
+    }
   }
 
   renderDay(day, dayNumber, unit_of_measurement) {
@@ -106,7 +108,14 @@ class LinkyCard extends LitElement {
     if (!config.entity) {
       throw new Error('You need to define an entity');
     }
-    this.config = config;
+    const defaultConfig = {
+      showHistory : true,
+    }
+
+    this.config = {
+      ...defaultConfig,
+      ...config
+    };
   }
 
   shouldUpdate(changedProps) {
