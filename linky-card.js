@@ -20,11 +20,6 @@ function hasConfigOrEntityChanged(element, changedProps) {
   return true;
 }
 
-toFloat = (value, decimals = 1) => Number.parseFloat(value).toFixed(decimals);
-
-previousMonth = () => new Date((new Date().getTime()) - 365*60*60*24*1000)
-                    .toLocaleDateString('fr-FR', {month: "long", year: "numeric"});
-
 class LinkyCard extends LitElement {
   static get properties() {
     return {
@@ -62,11 +57,11 @@ class LinkyCard extends LitElement {
         <ha-card>
           <div class="card">
             <div class="hp-hc-block">
-              <span class="conso-hc">${toFloat(attributes.offpeak_hours)}</span><span class="conso-unit-hc"> ${attributes.unit_of_measurement} <span class="more-unit">(en HC)</span></span><br />
-              <span class="conso-hp">${toFloat(attributes.peak_hours)}</span><span class="conso-unit-hp"> ${attributes.unit_of_measurement} <span class="more-unit">(en HP)</span></span>
+              <span class="conso-hc">${this.toFloat(attributes.offpeak_hours)}</span><span class="conso-unit-hc"> ${attributes.unit_of_measurement} <span class="more-unit">(en HC)</span></span><br />
+              <span class="conso-hp">${this.toFloat(attributes.peak_hours)}</span><span class="conso-unit-hp"> ${attributes.unit_of_measurement} <span class="more-unit">(en HP)</span></span>
             </div>
             <div class="cout-block">
-              <span class="cout" title="Coût journalier">${toFloat(attributes.daily_cost, 2)}</span><span class="cout-unit"> €</span>
+              <span class="cout" title="Coût journalier">${this.toFloat(attributes.daily_cost, 2)}</span><span class="cout-unit"> €</span>
             </div>
             <div class="clear"></div>
             <span>
@@ -74,7 +69,7 @@ class LinkyCard extends LitElement {
                   <li><span class="ha-icon"><ha-icon icon="mdi:flash"></ha-icon></span>${Math.round(attributes.peak_offpeak_percent)}<span class="unit"> % HP</span></li>
               </ul>
               <ul class="variations-linky">
-                  <li><span class="ha-icon"><ha-icon icon="mdi:arrow-right" style="transform: rotate(${(attributes.monthly_evolution < 0) ? '45' : ((attributes.monthly_evolution == 0) ? "0" : "-45")}deg)"></ha-icon></span>${Math.round(attributes.monthly_evolution)}<span class="unit"> %</span><span class="previous-month">par rapport à ${previousMonth()}</span></li>
+                  <li><span class="ha-icon"><ha-icon icon="mdi:arrow-right" style="transform: rotate(${(attributes.monthly_evolution < 0) ? '45' : ((attributes.monthly_evolution == 0) ? "0" : "-45")}deg)"></ha-icon></span>${Math.round(attributes.monthly_evolution)}<span class="unit"> %</span><span class="previous-month">par rapport à ${this.previousMonth()}</span></li>
               </ul>
             </span>
             ${this.renderHistory(attributes.daily, attributes.unit_of_measurement)}
@@ -99,7 +94,7 @@ class LinkyCard extends LitElement {
       `
         <div class="day">
           <span class="dayname">${new Date(new Date().setDate(new Date().getDate()-(6-Number.parseInt(dayNumber)))).toLocaleDateString('fr-FR', {weekday: "long"}).split(' ')[0]}</span>
-          <br><span class="cons-val">${toFloat(day)} ${unit_of_measurement}</span>
+          <br><span class="cons-val">${this.toFloat(day)} ${unit_of_measurement}</span>
         </div>
       `
   }
@@ -126,6 +121,17 @@ class LinkyCard extends LitElement {
   getCardSize() {
     return 3;
   }
+ 
+  toFloat(value, decimals = 1) {
+    return Number.parseFloat(value).toFixed(decimals);
+  }
+  
+  
+  previousMonth() {
+    return new Date((new Date().getTime()) - 365*60*60*24*1000)
+      .toLocaleDateString('fr-FR', {month: "long", year: "numeric"});
+  } 
+
 
   static get styles() {
     return css`
