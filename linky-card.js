@@ -56,6 +56,7 @@ class LinkyCard extends LitElement {
       return html`
         <ha-card>
           <div class="card">
+            <div class="main-info">
             <div class="hp-hc-block">
               <span class="conso-hc">${this.toFloat(attributes.offpeak_hours)}</span><span class="conso-unit-hc"> ${attributes.unit_of_measurement} <span class="more-unit">(en HC)</span></span><br />
               <span class="conso-hp">${this.toFloat(attributes.peak_hours)}</span><span class="conso-unit-hp"> ${attributes.unit_of_measurement} <span class="more-unit">(en HP)</span></span>
@@ -63,15 +64,22 @@ class LinkyCard extends LitElement {
             <div class="cout-block">
               <span class="cout" title="Coût journalier">${this.toFloat(attributes.daily_cost, 2)}</span><span class="cout-unit"> €</span>
             </div>
-            <div class="clear"></div>
-            <span>
-              <ul class="variations-linky right">
-                  <li><span class="ha-icon"><ha-icon icon="mdi:flash"></ha-icon></span>${Math.round(attributes.peak_offpeak_percent)}<span class="unit"> % HP</span></li>
-              </ul>
-              <ul class="variations-linky">
-                  <li><span class="ha-icon"><ha-icon icon="mdi:arrow-right" style="transform: rotate(${(attributes.monthly_evolution < 0) ? '45' : ((attributes.monthly_evolution == 0) ? "0" : "-45")}deg)"></ha-icon></span>${Math.round(attributes.monthly_evolution)}<span class="unit"> %</span><span class="previous-month">par rapport à ${this.previousMonth()}</span></li>
-              </ul>
+            </div>
+            <div class="variations">
+              <span class="variations-linky">
+                <span class="ha-icon">
+                  <ha-icon icon="mdi:arrow-right" style="transform: rotate(${(attributes.monthly_evolution < 0) ? '45' : ((attributes.monthly_evolution == 0) ? "0" : "-45")}deg)">
+                  </ha-icon>
             </span>
+                ${Math.round(attributes.monthly_evolution)}<span class="unit"> %</span><span class="previous-month">par rapport à ${this.previousMonth()}</span>
+              </span>
+              <span class="variations-linky">
+                <span class="ha-icon">
+                  <ha-icon icon="mdi:flash"></ha-icon>
+                </span>
+                ${Math.round(attributes.peak_offpeak_percent)}<span class="unit"> % HP</span>
+               </span>
+            </div>
             ${this.renderHistory(attributes.daily, attributes.unit_of_measurement)}
           </div>
         <ha-card>`
@@ -135,14 +143,15 @@ class LinkyCard extends LitElement {
 
   static get styles() {
     return css`
-      .clear {
-        clear: both;
-      }
-    
       .card {
         margin: auto;
         padding: 1.5em 1em 1em 1em;
         position: relative;
+      }
+    
+      .main-info {
+        display: flex;
+        justify-content: space-between;
       }
     
       .ha-icon {
@@ -150,85 +159,45 @@ class LinkyCard extends LitElement {
         color: var(--paper-item-icon-color);
       }
       
-      .hp-hc-block {
-        float: left;
-        text-align: right;
-        margin-left: 1em;
-      }
-      
       .cout-block {
-        padding-top: 1em;
-        float: left;
       }
       
-      .icon-block {
-        float: left;
-      }
-  
       .cout {
         font-weight: 300;
         font-size: 4em;
-        color: var(--primary-text-color);
-        position: absolute;
-        right: 0.8em;
       }
     
       .cout-unit {
         font-weight: 300;
         font-size: 1.5em;
-        color: var(--primary-text-color);
-        position: absolute;
-        right: 1em;
-        margin-top: -14px;
-        margin-right: 7px;
+        display: inline-block;
+        vertical-align: 1.2em;
       }
     
-      .conso-hp {
+      .conso-hp, .conso-hc {
         font-weight: 200;
         font-size: 2em;
-        color: var(--primary-text-color);
       }
     
-      .conso-hc {
-        font-weight: 200;
-        font-size: 2em;
-        color: var(--primary-text-color);
-      }
-    
-      .conso-unit-hc {
+      .conso-unit-hc, .conso-unit-hp {
         font-weight: 100;
         font-size: 1em;
-        vertical-align: super;
-        color: var(--primary-text-color);
-        margin-top: -14px;
-        margin-right: 7px;
       }
     
-      .conso-unit-hp {
-        font-weight: 100;
-        font-size: 1em;
-        vertical-align: super;
-        margin-top: -14px;
-        margin-right: 7px;
-      }
-      
       .more-unit {
         font-style: italic;
         font-size: 0.8em;
       }
     
+      .variations {
+        display: flex;
+        justify-content: space-between;
+      }
+
       .variations-linky {
         display: inline-block;
         font-weight: 300;
-        list-style: none;
-        margin-left: -2em;
-      }
-    
-      .variations-linky.right {
-        position: absolute;
-        right: 1em;
-        margin-left: 0;
-        margin-right: 1em;
+        margin: 1em;
       }
     
       .unit {
