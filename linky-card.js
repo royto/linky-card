@@ -57,20 +57,28 @@ class LinkyCard extends LitElement {
         <ha-card>
           <div class="card">
             <div class="main-info">
-            <div class="hp-hc-block">
-              <span class="conso-hc">${this.toFloat(attributes.offpeak_hours)}</span><span class="conso-unit-hc"> ${attributes.unit_of_measurement} <span class="more-unit">(en HC)</span></span><br />
-              <span class="conso-hp">${this.toFloat(attributes.peak_hours)}</span><span class="conso-unit-hp"> ${attributes.unit_of_measurement} <span class="more-unit">(en HP)</span></span>
-            </div>
-            <div class="cout-block">
-              <span class="cout" title="Coût journalier">${this.toFloat(attributes.daily_cost, 2)}</span><span class="cout-unit"> €</span>
-            </div>
+              ${this.config.showPeakOffPeak
+                ? html`
+                  <div class="hp-hc-block">
+                    <span class="conso-hc">${this.toFloat(attributes.offpeak_hours)}</span><span class="conso-unit-hc"> ${attributes.unit_of_measurement} <span class="more-unit">(en HC)</span></span><br />
+                    <span class="conso-hp">${this.toFloat(attributes.peak_hours)}</span><span class="conso-unit-hp"> ${attributes.unit_of_measurement} <span class="more-unit">(en HP)</span></span>
+                  </div>`
+                : html`
+                  <div class="cout-block">
+                    <span class="cout">${this.toFloat(stateObj.state)}</span>
+                    <span class="cout-unit">${attributes.unit_of_measurement}</span>
+                  </div>`
+              }
+              <div class="cout-block">
+                <span class="cout" title="Coût journalier">${this.toFloat(attributes.daily_cost, 2)}</span><span class="cout-unit"> €</span>
+              </div>
             </div>
             <div class="variations">
               <span class="variations-linky">
                 <span class="ha-icon">
                   <ha-icon icon="mdi:arrow-right" style="transform: rotate(${(attributes.monthly_evolution < 0) ? '45' : ((attributes.monthly_evolution == 0) ? "0" : "-45")}deg)">
                   </ha-icon>
-            </span>
+                </span>
                 ${Math.round(attributes.monthly_evolution)}<span class="unit"> %</span><span class="previous-month">par rapport à ${this.previousMonth()}</span>
               </span>
               <span class="variations-linky">
@@ -113,6 +121,7 @@ class LinkyCard extends LitElement {
     }
     const defaultConfig = {
       showHistory : true,
+      showPeakOffPeak: true,
     }
 
     this.config = {
@@ -148,7 +157,7 @@ class LinkyCard extends LitElement {
         padding: 1.5em 1em 1em 1em;
         position: relative;
       }
-    
+
       .main-info {
         display: flex;
         justify-content: space-between;
@@ -161,7 +170,7 @@ class LinkyCard extends LitElement {
       
       .cout-block {
       }
-      
+  
       .cout {
         font-weight: 300;
         font-size: 4em;
@@ -183,7 +192,7 @@ class LinkyCard extends LitElement {
         font-weight: 100;
         font-size: 1em;
       }
-    
+      
       .more-unit {
         font-style: italic;
         font-size: 0.8em;
