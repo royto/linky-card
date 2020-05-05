@@ -81,12 +81,17 @@ class LinkyCard extends LitElement {
                 </span>
                 ${Math.round(attributes.monthly_evolution)}<span class="unit"> %</span><span class="previous-month">par rapport à ${this.previousMonth()}</span>
               </span>
-              <span class="variations-linky">
-                <span class="ha-icon">
-                  <ha-icon icon="mdi:flash"></ha-icon>
-                </span>
-                ${Math.round(attributes.peak_offpeak_percent)}<span class="unit"> % HP</span>
-               </span>
+              ${this.config.showPeakOffPeak 
+                ? html `
+                  <span class="variations-linky">
+                    <span class="ha-icon">
+                      <ha-icon icon="mdi:flash"></ha-icon>
+                    </span>
+                    ${Math.round(attributes.peak_offpeak_percent)}<span class="unit"> % HP</span>
+                  </span>`
+                : html ``
+               }
+              
             </div>
             ${this.renderHistory(attributes.daily, attributes.unit_of_measurement)}
           </div>
