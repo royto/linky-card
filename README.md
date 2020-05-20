@@ -2,14 +2,12 @@
 
 A custom [Lovelace](https://www.home-assistant.io/lovelace/) component for displaying linky info for [Home Assistant](https://github.com/home-assistant/home-assistant).
 
-**Warning**: this card use a custom integration of Linky and not the default version of Home Assistant.
+**Warning**: this card use a custom integration of Linky and not the default version of Home Assistant. You can see how to install and get the custom integration files from [@SeByDocKy youtube video](https://www.youtube.com/watch?v=QN0utSO_n98)
 
 The card is initialy based on the work of [@Imbuzi](https://github.com/Imbuzi). I convert it to Lit Element and add some configuration option.
 
 ![logbook card example](images/default.png)
 
-[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge)](https://github.com/custom-components/hacs)
-[![GitHub version](https://img.shields.io/github/v/release/royto/linky-card?style=for-the-badge)](https://github.com/royto/linky-card/releases)
 [![GitHub license](https://img.shields.io/badge/LICENCE-GPLv3-green.svg?style=for-the-badge)](/LICENSE)
 
 ## Installation
