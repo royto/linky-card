@@ -33,12 +33,13 @@ resources:
 
 #### Card options
 
-| Name            | Type    | Required     | Since | Default | Description |
-| --------------- | ------- | ------------ | ----- | ------- | ------------|
+| Name            | Type    | Required     | Since | Default   | Description |
+| --------------- | ------- | ------------ | ----- | --------- | ------------|
 | type            | string  | **required** | v0.1  | `custom:linky-card` |    |
-| entity          | string  | **required** | v0.1  |         | The linky sensor entity_id. |
-| showHistory     | bool    | optional     | v0.1  | true    | Display History |
-| showPeakOffPeak | bool    | optional     | v0.1  | true    | Activate Peak(heure pleine) and OffPeak mode (heures creuses) |
+| entity          | string  | **required** | v0.1  |           | The linky sensor entity_id. |
+| showHistory     | bool    | optional     | v0.1  | true      | Display History |
+| showPeakOffPeak | bool    | optional     | v0.1  | true      | Activate Peak(heure pleine) and OffPeak mode (heures creuses) |
+| kWhPrice        | number  | optional     | v0.2  | undefined | Calculate Price (only available if showPeakOffPeak is false)
 
 ### Example usage
 
@@ -70,3 +71,15 @@ showHistory: false
 ```
 
 ![No history](images/no-history.png)
+
+Example with Price
+
+```yaml
+entity: sensor.linky
+showHistory: true
+showPeakOffPeak: false
+type: 'custom:linky-card'
+kWhPrice: 0.128
+```
+
+![Price](images/price.png)

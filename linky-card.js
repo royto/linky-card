@@ -93,40 +93,56 @@ class LinkyCard extends LitElement {
                }
               
             </div>
-            ${this.renderHistory(attributes.daily, attributes.unit_of_measurement)}
+            ${this.renderHistory(attributes.daily, attributes.unit_of_measurement, this.config)}
           </div>
         <ha-card>`
     }
   }
 
-  renderHistory(daily, unit_of_measurement) {
+  renderHistory(daily, unit_of_measurement, config) {
     if (this.config.showHistory === true) {
       return html
         `
           <div class="week-history">
-            ${daily.slice(2, 7).reverse().map((day, index) => this.renderDay(day, index, unit_of_measurement))}
+            ${daily.slice(2, 7).reverse().map((day, index) => this.renderDay(day, index, unit_of_measurement, config))}
           </div>
         `
     }
   }
 
-  renderDay(day, dayNumber, unit_of_measurement) {
+  renderDay(day, dayNumber, unit_of_measurement, config) {
     return html
       `
         <div class="day">
           <span class="dayname">${new Date(new Date().setDate(new Date().getDate()-(6-Number.parseInt(dayNumber)))).toLocaleDateString('fr-FR', {weekday: "long"}).split(' ')[0]}</span>
           <br><span class="cons-val">${this.toFloat(day)} ${unit_of_measurement}</span>
+          ${this.renderDayPrice(day, config)}
         </div>
       `
+  }
+
+  renderDayPrice(value, config) {
+    if (config.showPeakOffPeak === false && config.kWhPrice) {
+      return html
+      `
+        <br><span class="cons-val">${this.toFloat(value * config.kWhPrice, 2)} €</span>
+      `;
+    }
   }
 
   setConfig(config) {
     if (!config.entity) {
       throw new Error('You need to define an entity');
     }
+
+    if (config.kWhPrice && isNaN(config.kWhPrice)) {
+      throw new Error('kWhPrice should be a number')
+    }
+    
     const defaultConfig = {
       showHistory : true,
       showPeakOffPeak: true,
+      kWhPrice: undefined,
     }
 
     this.config = {
@@ -147,7 +163,6 @@ class LinkyCard extends LitElement {
   toFloat(value, decimals = 1) {
     return Number.parseFloat(value).toFixed(decimals);
   }
-  
   
   previousMonth() {
     return new Date((new Date().getTime()) - 365*60*60*24*1000)
