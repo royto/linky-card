@@ -6,7 +6,7 @@ A custom [Lovelace](https://www.home-assistant.io/lovelace/) component for displ
 
 The card is initialy based on the work of [@Imbuzi](https://github.com/Imbuzi). I convert it to Lit Element and add some configuration option.
 
-![logbook card example](images/default.png)
+![logbook card example](https://raw.githubusercontent.com/royto/linky-card/master/images/default.png)
 
 [![GitHub license](https://img.shields.io/badge/LICENCE-GPLv3-green.svg?style=for-the-badge)](/LICENSE)
 
@@ -50,7 +50,7 @@ type: "custom:linky-card"
 entity: sensor.linky
 ```
 
-![No history](images/default.png)
+![No history](https://raw.githubusercontent.com/royto/linky-card/master/images/default.png)
 
 Example with Peak OffPeak hour disabled
 
@@ -60,7 +60,7 @@ entity: sensor.linky
 showPeakOffPeak: false
 ```
 
-![No history](images/no-peak-offpeak.png)
+![No history](https://raw.githubusercontent.com/royto/linky-card/master/images/no-peak-offpeak.png)
 
 Example with no history
 
@@ -70,7 +70,7 @@ entity: sensor.linky
 showHistory: false
 ```
 
-![No history](images/no-history.png)
+![No history](https://raw.githubusercontent.com/royto/linky-card/master/images/no-history.png)
 
 Example with Price
 
@@ -82,4 +82,4 @@ type: 'custom:linky-card'
 kWhPrice: 0.128
 ```
 
-![Price](images/price.png)
+![Price](https://raw.githubusercontent.com/royto/linky-card/master/images/price.png)
